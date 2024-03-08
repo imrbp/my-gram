@@ -1,0 +1,7 @@
+DB_HOST: localhost
+DB_PORT: 5432
+DB_USERNAME: imr.bp
+DB_PASSWORD: /
+DB_DATABASE: my_gram
+
+JWT_SECRET_KEY: RandomHash237

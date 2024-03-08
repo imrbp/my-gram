@@ -1,0 +1,533 @@
+openapi: "3.0.2"
+info:
+  title: Category RESTful API
+  description: This is a sample server Category server.
+  version: "1.0"
+servers:
+  - url: http://localhost:8080/api
+    description: Local server
+paths:
+  /users/register:
+    post:
+      tags:
+        - "User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+  /users/login:
+    post:
+      tags:
+        - "User"
+      description: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+
+      responses:
+        "200":
+          description: Success create a new category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    $ref: "#/components/schemas/Order"
+  /users:
+    put:
+      tags:
+        - "User"
+      description: Update User
+      security:
+        - JWTAuth : []
+      requestBody:
+         content:
+           application/json:
+             schema:
+               type: object
+      responses:
+        "200":
+          description: Success update Order by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    $ref: "#/components/schemas/Order"
+
+    delete:
+      tags:
+        - "User"
+      description: Delete User
+      security:
+        - JWTAuth : []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Success update Order by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    $ref: "#/components/schemas/Order"
+
+  /photos:
+    post:
+      tags:
+        - "Photo API"
+#      description: Update Order by id
+#      summary: Update Order by id
+      security:
+        - JWTAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Success update Order by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    $ref: "#/components/schemas/Order"
+    get:
+      tags:
+        - "Photo API"
+#      description: Delete Order by id
+#      summary: Delete Order by id
+      security:
+        - JWTAuth: []
+      responses:
+        "200":
+          description: Success delete category by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: string
+                    example: "Delete category success"
+    put:
+      tags:
+        - "Photo API"
+      #      description: Delete Order by id
+      #      summary: Delete Order by id
+      parameters:
+        - name: categoriesId
+          in: path
+          required: true
+          description: ID of category to return
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      security:
+        - JWTAuth: [ ]
+      responses:
+        "200":
+          description: Success delete category by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: string
+                    example: "Delete category success"
+    delete:
+      tags:
+        - "Photo API"
+      #      description: Delete Order by id
+      #      summary: Delete Order by id
+      parameters:
+        - name: categoriesId
+          in: path
+          required: true
+          description: ID of category to return
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      security:
+        - JWTAuth: []
+      responses:
+        "200":
+          description: Success delete category by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: string
+                    example: "Delete category success"
+
+  /comments:
+    post:
+      tags:
+        - "Comments"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+    get:
+      tags:
+        - "Comments"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+    put:
+      tags:
+        - "Comments"
+      parameters:
+        - name: categoriesId
+          in: path
+          required: true
+          description: ID of category to return
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+
+    delete:
+      tags:
+        - "Comments"
+      parameters:
+        - name: categoriesId
+          in: path
+          required: true
+          description: ID of category to return
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+
+  /socialmedias:
+    post:
+      tags:
+        - "Social Medias"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+    get:
+      tags:
+        - "Social Medias"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+    put:
+      tags:
+        - "Social Medias"
+      parameters:
+        - name: categoriesId
+          in: path
+          required: true
+          description: ID of category to return
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+
+    delete:
+      tags:
+        - "Social Medias"
+      parameters:
+        - name: categoriesId
+          in: path
+          required: true
+          description: ID of category to return
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      responses:
+        "200":
+          description: Success Create New Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  status:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+
+
+components:
+  securitySchemes:
+    JWTAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: API
+  schemas:
+    Item:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+          example: 1
+          description: "Item id, needed for update order. When create new order it will be optional"
+        itemCode:
+          type: integer
+          format: int32
+          example: 123
+        description:
+          type: string
+          example: "IPhone 12"
+        quantity:
+          type: integer
+          format: int32
+          example: 1
+    Order:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int32
+          example: 1
+          description: "Order id, needed for update order. When create new order it will be optional"
+        customerName:
+          type: string
+          example: "Alex"
+        orderedAt:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00Z"
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
