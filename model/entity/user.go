@@ -6,8 +6,8 @@ import (
 
 type User struct {
 	Id        int       `gorm:"primaryKey"`
-	Username  string    `gorm:"uniqueIndex;not null"`
-	Email     string    `gorm:"uniqueIndex;not null"`
+	Username  string    `gorm:"uniqueIndex;not null;type:varchar(50)"`
+	Email     string    `gorm:"uniqueIndex;not null;type:varchar(100)"`
 	Password  string    `gorm:"not null"`
 	Age       int       `gorm:"not null"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime"`
@@ -52,8 +52,11 @@ type UserCreateResponse struct {
 	Age      int    `json:"age"`
 }
 
-type UserValidate struct {
-	Token string `query:"token"`
+type UserReadJwt struct {
+	Id       int    `json:"id"`
+	Email    string `json:"email"`
+	Username string `json:"username"`
+	Age      int    `json:"age"`
 }
 
 type UserUpdateResponse struct {

@@ -26,54 +26,62 @@ func (uR *UserRepositoryImpl) Create(ctx context.Context, payload entity.User) (
 }
 
 func (uR *UserRepositoryImpl) Update(ctx context.Context, payload entity.User) (entity.User, error) {
-	userFind, err := uR.FindByUsername(ctx, payload.Username)
-	if err != nil {
-		return userFind, err
-	}
-	payloadUpdate := entity.User{
-		Id:       userFind.Id,
-		Username: payload.Username,
-		Email:    payload.Email,
-		Password: payload.Password,
-		Age:      payload.Age,
-	}
-	result := uR.DB.WithContext(ctx).Updates(&payloadUpdate)
+	result := uR.DB.WithContext(ctx).Updates(&payload)
 	if result.Error != nil {
-		return payloadUpdate, result.Error
+		return payload, result.Error
 	}
-	return payloadUpdate, nil
+	return payload, nil
 }
 
 func (uR *UserRepositoryImpl) Delete(ctx context.Context, payload entity.User) (err error) {
 	// TODO: Delete With association
-	userDeleted := uR.DB.WithContext(ctx).Select(clause.Associations).Delete(payload)
+	userDeleted := uR.DB.WithContext(ctx).Select(clause.Associations).Delete(&payload)
 	if userDeleted.Error != nil {
 		return userDeleted.Error
 	}
 	return nil
 }
 
-func (uR *UserRepositoryImpl) FindByUsername(ctx context.Context, username string) (entity.User, error) {
+func (uR *UserRepositoryImpl) GetByUsername(ctx context.Context, username string) (entity.User, error) {
 	userFind := entity.User{Username: username}
-	result := uR.DB.WithContext(ctx).First(&userFind).Scan(&userFind)
+	result := uR.DB.WithContext(ctx).Find(&userFind)
 	if result.Error != nil {
 		return userFind, result.Error
 	}
 	return userFind, nil
 }
 
-func (uR *UserRepositoryImpl) FindByEmail(ctx context.Context, email string) (entity.User, error) {
+func (uR *UserRepositoryImpl) GetByEmail(ctx context.Context, email string) (entity.User, error) {
 	userFind := entity.User{Email: email}
-	result := uR.DB.WithContext(ctx).First(&userFind).Scan(&userFind)
+	result := uR.DB.WithContext(ctx).Find(&userFind)
 	if result.Error != nil {
 		return userFind, result.Error
 	}
 	return userFind, nil
 }
 
-//func (uR *UserRepositoryImpl) FindMatch(ctx context.Context, entities entity.User) entity.User {
-//	findMatch := entity.User{}
-//	result := uR.DB.WithContext(ctx).First(&entities).Scan(&findMatch)
-//	helper.PanicIfError(result.Error)
-//	return findMatch
-//}
+func (uR *UserRepositoryImpl) FindMatch(ctx context.Context, payload entity.UserReadJwt) (entity.User, error) {
+	userFind := entity.User{
+		Id:       payload.Id,
+		Username: payload.Username,
+		Email:    payload.Email,
+		Age:      payload.Age,
+	}
+	result := uR.DB.WithContext(ctx).Find(&userFind)
+	if result.Error != nil {
+		return userFind, result.Error
+	}
+	return userFind, nil
+}
+
+func (uR *UserRepositoryImpl) GetByEmailAndPassword(ctx context.Context, user entity.User) (entity.User, error) {
+	userLogin := entity.User{
+		Email:    user.Email,
+		Password: user.Password,
+	}
+	result := uR.DB.WithContext(ctx).Find(&userLogin)
+	if result.Error != nil {
+		return userLogin, result.Error
+	}
+	return userLogin, nil
+}

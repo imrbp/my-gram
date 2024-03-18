@@ -59,8 +59,46 @@ func (uC UserControllerImpl) Login(ctx *fiber.Ctx) (err error) {
 		return err
 	}
 
-	token := uC.Service.Login(context.Background(), userLogin)
+	token, err := uC.Service.Login(context.Background(), userLogin)
+	if err != nil {
+		return err
+	}
+
 	return ctx.Status(fiber.StatusOK).JSON(entity.TokenLogin{
 		Token: token,
-	};
+	})
+}
+
+func (uC UserControllerImpl) Update(ctx *fiber.Ctx) (err error) {
+	UserReadJwt := ctx.Locals("userRead").(entity.UserReadJwt)
+
+	ctx.Accepts("application/json")
+
+	userUpdate := entity.UserUpdateRequest{}
+	if err := ctx.BodyParser(&userUpdate); err != nil {
+		return err
+	}
+
+	result, err := uC.Service.Update(context.Background(), userUpdate, UserReadJwt)
+	if err != nil {
+		return err
+	}
+	return ctx.Status(fiber.StatusOK).JSON(entity.UserUpdateResponse{
+		Id:       result.Id,
+		Username: result.Username,
+		Email:    result.Email,
+		Age:      result.Age,
+		UpdateAt: result.UpdatedAt,
+	})
+}
+
+func (uC UserControllerImpl) Delete(ctx *fiber.Ctx) (err error) {
+	userDelete := ctx.Locals("userRead").(entity.UserReadJwt)
+	err = uC.Service.Delete(context.Background(), userDelete)
+	if err != nil {
+		return err
+	}
+	return ctx.Status(fiber.StatusOK).JSON(struct {
+		Message string `json:"message"`
+	}{"Your account has been successfully deleted"})
 }

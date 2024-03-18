@@ -2,11 +2,13 @@ package route
 
 import (
 	app2 "MyGram/app"
-	controller2 "MyGram/controller"
-	repository2 "MyGram/repository"
+	"MyGram/controller"
+	"MyGram/helper"
+	"MyGram/repository"
 	"MyGram/service"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/keyauth"
 )
 
 func UserHandler() *fiber.App {
@@ -14,12 +16,18 @@ func UserHandler() *fiber.App {
 
 	db := app2.InitDB()
 	validate := validator.New()
-	repositoryUser := repository2.NewUserRepository(db)
+	repositoryUser := repository.NewUserRepository(db)
 	serviceUser := service.NewUserService(repositoryUser)
-	controllerUser := controller2.NewUserController(serviceUser, validate)
+	controllerUser := controller.NewUserController(serviceUser, validate)
+
+	authMiddleware := keyauth.New(keyauth.Config{
+		Validator: helper.AuthBearerValidation,
+	})
+
 	userH := app.Group("/users")
 	userH.Post("/register", controllerUser.Register)
-	//userH.Post("/login")
-	//userH.Put("/")
+	userH.Post("/login", controllerUser.Login)
+	userH.Put("", authMiddleware, controllerUser.Update)
+	userH.Delete("", authMiddleware, controllerUser.Delete)
 	return app
 }

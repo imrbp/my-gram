@@ -16,21 +16,21 @@ type Comment struct {
 }
 
 type CommentCreateRequest struct {
-	PhotoId int    `json:"photo_id"`
+	PhotoId int    `json:"photo_id" validation:"required"`
 	Message string `json:"message" validation:"required"`
 }
 type CommentCreateResponse struct {
 	Id        int       `json:"id"`
-	UserId    User      `json:"userId"`
-	PhotoId   Photo     `json:"photo_id"`
+	UserId    int       `json:"userId"`
+	PhotoId   int       `json:"photo_id"`
 	Message   string    `json:"message"`
 	CreatedAt time.Time `json:"created_at"`
 }
 type CommentResponse struct {
 	Id        int                  `json:"id"`
 	Message   string               `json:"message"`
-	PhotoId   Photo                `json:"photo_id"`
-	UserId    User                 `json:"userId"`
+	PhotoId   int                  `json:"photo_id"`
+	UserId    int                  `json:"userId"`
 	CreatedAt time.Time            `json:"created_at"`
 	UpdatedAt time.Time            `json:"updated_at"`
 	User      UserRelationComment  `json:"User"`
@@ -43,8 +43,8 @@ type CommentUpdateRequest struct {
 
 type CommentUpdateResponse struct {
 	Id        int       `json:"id"`
-	UserId    User      `json:"userId"`
-	PhotoId   Photo     `json:"photo_id"`
+	UserId    int       `json:"userId"`
+	PhotoId   int       `json:"photo_id"`
 	Message   string    `json:"message"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

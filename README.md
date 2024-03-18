@@ -11,8 +11,8 @@
 - [validation](github.com/go-playground/validator/v10)
 
 # Need to ask 
-- [jwt-go](github.com/dgrijalva/jwt-go) Deprecated
-- what if using fiber?
-- why in GET /socialmedias ada profile image url
-- Validate Email dalam databse? bukan saat using go-validation. tapi gorm
-- Relation in user or photo. I use FK in gorm so if user deleted then social media, comments and photo will be deleted
+- [jwt-go](github.com/dgrijalva/jwt-go) 
+- Relation in user or photo. I use FK in gorm so if user deleted then social media, comments and photo will be deleted -> yes kedelete semua
+- comment ID in PUT comment/:commentID. bisa comment photo id yang mana aja
+- any url need validation, photo and social media
+- Get all -> no data, array kosong

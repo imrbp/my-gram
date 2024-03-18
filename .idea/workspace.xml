@@ -5,35 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14e494b7-d11f-43f2-b797-2424bbbe9575" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../assignment02/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../assignment03/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../assignment03/helper/rw_json.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../assignment03/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apispec.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/database.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/user_controller_impl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helper/error.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helper/jwt.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helper/validator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/entity/comment.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/entity/photo.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/entity/social_media.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/entity/user.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repository/comment_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repository/photo_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repository/social_media_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repository/user_repository_impl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route/comment_route.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route/photo_route.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route/social_media_route.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route/user_route.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/user_service.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/user_service_impl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/comment_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/comment_controller_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/photo_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/photo_controller_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/social_media_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/social_media_controller_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository/comment_repository_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository/photo_repository_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository/social_media_repository_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/comment_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/comment_service_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/photo_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/photo_service_impl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/social_media_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/social_media_service_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/user_controller_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/helper/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entity/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/comment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entity/photo.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/photo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entity/social_media.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/social_media.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entity/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/comment_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/comment_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/photo_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/photo_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/social_media_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/social_media_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/user_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user_repository_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/comment_route.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/comment_route.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/photo_route.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/photo_route.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/social_media_route.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/social_media_route.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/user_route.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/user_route.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/user_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user_service_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/repository.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +61,7 @@
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -63,7 +75,7 @@
   <component name="GitLabMergeRequestsSettings">{}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/imrbp/digitalent-hacktiv8.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/imrbp/my-gram.git&quot;,
     &quot;accountId&quot;: &quot;4c93658c-e51c-4e3b-97c4-431648065739&quot;
   }
 }</component>
@@ -74,6 +86,7 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2dDW2w3GuSuuXSG1F1aRgTd0yHp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -90,15 +103,21 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/imr.bp/GolandProjects/digitalent-hacktiv8/final-project&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/imr.bp/GolandProjects/digitalent-hacktiv8/my-gram&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

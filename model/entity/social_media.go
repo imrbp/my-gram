@@ -16,7 +16,7 @@ type SocialMedia struct {
 
 type SocialMediaCreateRequest struct {
 	Name           string `json:"name" validation:"required"`
-	SocialMediaUrl string `json:"social_media_url" validation:"required"`
+	SocialMediaUrl string `json:"social_media_url" validation:"required,url"`
 }
 
 type SocialMediaCreateResponse struct {
@@ -27,7 +27,7 @@ type SocialMediaCreateResponse struct {
 	CreatedAt      time.Time `json:"created_at"`
 }
 type GetSocialMedia struct {
-	SocialMedias ItemSocialMedia `json:"social_medias"`
+	SocialMedias []ItemSocialMedia `json:"social_medias"`
 }
 
 type ItemSocialMedia struct {
@@ -38,9 +38,8 @@ type ItemSocialMedia struct {
 	UpdatedAt      time.Time               `json:"updated_at"`
 	CreatedAt      time.Time               `json:"created_at"`
 	User           UserRelationSocialMedia `json:"User"`
-	Photo          PhotoRelationComment    `json:"Photo"`
 }
-type UpdateSocialMedia struct {
+type SocialMediaUpdateRequest struct {
 	Name           string `json:"name" validation:"required"`
 	SocialMediaUrl string `json:"social_media_url" validation:"required"`
 }

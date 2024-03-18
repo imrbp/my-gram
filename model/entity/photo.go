@@ -18,7 +18,16 @@ type Photo struct {
 type PhotoCreateRequest struct {
 	Title    string `json:"title" validation:"required"`
 	Caption  string `json:"caption"`
-	PhotoUrl string `json:"photo_url" validation:"required"`
+	PhotoUrl string `json:"photo_url" validation:"required,url"`
+}
+
+type PhotoCreateResponse struct {
+	Id        int       `json:"id"`
+	Title     string    `json:"title"`
+	Caption   string    `json:"caption"`
+	PhotoUrl  string    `json:"photo_url"`
+	UserId    int       `json:"user_id"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type PhotoResponse struct {
@@ -26,18 +35,24 @@ type PhotoResponse struct {
 	Title     string            `json:"title"`
 	Caption   string            `json:"caption"`
 	PhotoUrl  string            `json:"photo_url"`
-	UserId    User              `json:"user_id"`
+	UserId    int               `json:"user_id"`
 	UpdatedAt time.Time         `json:"updated_at"`
 	CreatedAt time.Time         `json:"created_at"`
 	User      UserRelationPhoto `json:"User"`
 }
 
 type PhotoUpdateRequest struct {
-	Id        int       `json:"id"  validation:"required"`
-	Title     string    `json:"title"  validation:"required"`
+	Title    string `json:"title" validation:"required"`
+	Caption  string `json:"caption"`
+	PhotoUrl string `json:"photo_url" validation:"required"`
+}
+
+type PhotoUpdateResponse struct {
+	Id        int       `json:"id"`
+	Title     string    `json:"title"`
 	Caption   string    `json:"caption"`
-	PhotoUrl  string    `json:"photo_url"  validation:"required"`
-	UserId    User      `json:"user_id"`
+	PhotoUrl  string    `json:"photo_url"`
+	UserId    int       `json:"user_id"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
@@ -46,5 +61,5 @@ type PhotoRelationComment struct {
 	Title    string `json:"title"`
 	Caption  string `json:"caption"`
 	PhotoUrl string `json:"photo_url"`
-	UserId   User   `json:"user_id"`
+	UserId   int    `json:"user_id"`
 }
