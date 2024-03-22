@@ -5,48 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14e494b7-d11f-43f2-b797-2424bbbe9575" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/entity/social_medias.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route/route.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/storage/database.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/comment_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/comment_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/comment_controller_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/comment_controller_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/photo_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/photo_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/photo_controller_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/photo_controller_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/social_media_controller_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/social_media_controller_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/user_controller_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/helper/jwt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/validator.go" beforeDir="false" afterPath="$PROJECT_DIR$/helper/validator.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entity/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/comment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entity/photo.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/photo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entity/social_media.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entity/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/entity/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/comment_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/comment_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/comment_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/comment_repository_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/photo_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/photo_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/photo_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/photo_repository_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/social_media_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/social_media_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/social_media_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/social_media_repository_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/user_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user_repository_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/comment_route.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/photo_route.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/social_media_route.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/user_route.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/comment_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/comment_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/comment_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/comment_service_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/photo_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/photo_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/photo_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/photo_service_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/social_media_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/social_media_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/social_media_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/social_media_service_impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/user_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user_service_impl.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

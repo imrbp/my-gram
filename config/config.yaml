@@ -1,5 +1,7 @@
 DB_AUTO_MIGRATE: false
 
+ENV: TESTING
+
 DB_HOST: localhost
 DB_PORT: 5432
 DB_USERNAME: imr.bp

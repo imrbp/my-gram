@@ -7,6 +7,8 @@ import (
 type Config struct {
 	DB_AUTO_MIGRATE bool
 
+	ENV string
+
 	DB_HOST     string
 	DB_PORT     int
 	DB_USERNAME string
@@ -30,6 +32,20 @@ func LoadConfig() (config Config) {
 	err = viper.Unmarshal(&config)
 	if err != nil {
 		panic(err)
+	}
+
+	if config.ENV == "TESTING" || config.ENV == "PRODUCTION" {
+		viper.SetConfigFile("ENV")
+		err := viper.ReadInConfig()
+		if err != nil {
+			return Config{}
+		}
+		viper.AutomaticEnv()
+
+		err = viper.Unmarshal(&config)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	return
