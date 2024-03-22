@@ -4,14 +4,15 @@ import (
 	"MyGram/model/entity"
 	"context"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type SocialMediaRepositoryImpl struct {
 	DB *gorm.DB
 }
 
-func (smR SocialMediaRepositoryImpl) Create(ctx context.Context, payload entity.SocialMedia) (entity.SocialMedia, error) {
-	sm := entity.SocialMedia{
+func (smR SocialMediaRepositoryImpl) Create(ctx context.Context, payload entity.SocialMedias) (entity.SocialMedias, error) {
+	sm := entity.SocialMedias{
 		Name:           payload.Name,
 		SocialMediaUrl: payload.SocialMediaUrl,
 		UserId:         payload.UserId,
@@ -23,8 +24,8 @@ func (smR SocialMediaRepositoryImpl) Create(ctx context.Context, payload entity.
 	return sm, nil
 }
 
-func (smR SocialMediaRepositoryImpl) Update(ctx context.Context, payload entity.SocialMedia) (entity.SocialMedia, error) {
-	sm := entity.SocialMedia{
+func (smR SocialMediaRepositoryImpl) Update(ctx context.Context, payload entity.SocialMedias) (entity.SocialMedias, error) {
+	sm := entity.SocialMedias{
 		Id:             payload.Id,
 		Name:           payload.Name,
 		SocialMediaUrl: payload.SocialMediaUrl,
@@ -38,8 +39,8 @@ func (smR SocialMediaRepositoryImpl) Update(ctx context.Context, payload entity.
 	return sm, nil
 }
 
-func (smR SocialMediaRepositoryImpl) Delete(ctx context.Context, payload entity.SocialMedia) (entity.SocialMedia, error) {
-	sm := entity.SocialMedia{Id: payload.Id, UserId: payload.UserId}
+func (smR SocialMediaRepositoryImpl) Delete(ctx context.Context, payload entity.SocialMedias) (entity.SocialMedias, error) {
+	sm := entity.SocialMedias{Id: payload.Id, UserId: payload.UserId}
 	result := smR.DB.WithContext(ctx).Delete(&sm)
 
 	if result.Error != nil {
@@ -48,9 +49,9 @@ func (smR SocialMediaRepositoryImpl) Delete(ctx context.Context, payload entity.
 	return sm, nil
 }
 
-func (smR SocialMediaRepositoryImpl) GetById(ctx context.Context, socialMediaId int) (entity.SocialMedia, error) {
-	sm := entity.SocialMedia{Id: socialMediaId}
-	result := smR.DB.WithContext(ctx).Find(&sm)
+func (smR SocialMediaRepositoryImpl) GetById(ctx context.Context, socialMediaId int) (entity.SocialMedias, error) {
+	sm := entity.SocialMedias{}
+	result := smR.DB.WithContext(ctx).Where(entity.SocialMedias{Id: socialMediaId}).Find(&sm)
 
 	if result.Error != nil {
 		return sm, result.Error
@@ -58,9 +59,9 @@ func (smR SocialMediaRepositoryImpl) GetById(ctx context.Context, socialMediaId 
 	return sm, nil
 }
 
-func (smR SocialMediaRepositoryImpl) FindMatch(ctx context.Context, payload entity.SocialMedia) (entity.SocialMedia, error) {
-	sm := entity.SocialMedia{Id: payload.Id, UserId: payload.UserId}
-	result := smR.DB.WithContext(ctx).Find(&sm)
+func (smR SocialMediaRepositoryImpl) FindMatch(ctx context.Context, payload entity.SocialMedias) (entity.SocialMedias, error) {
+	sm := entity.SocialMedias{}
+	result := smR.DB.WithContext(ctx).Where(entity.SocialMedias{Id: payload.Id, UserId: payload.Id}).Find(&sm)
 
 	if result.Error != nil {
 		return sm, result.Error
@@ -68,10 +69,19 @@ func (smR SocialMediaRepositoryImpl) FindMatch(ctx context.Context, payload enti
 	return sm, nil
 }
 
-func (smR SocialMediaRepositoryImpl) GetByUserId(ctx context.Context, userId int) ([]entity.SocialMedia, error) {
-	var sms []entity.SocialMedia
-	sm := entity.SocialMedia{UserId: userId}
-	result := smR.DB.WithContext(ctx).Where(&sm).Find(&sms)
+func (smR SocialMediaRepositoryImpl) GetByUserId(ctx context.Context, userId int) ([]entity.SocialMedias, error) {
+	var sms []entity.SocialMedias
+	result := smR.DB.WithContext(ctx).Where(entity.SocialMedias{UserId: userId}).Find(&sms)
+
+	if result.Error != nil {
+		return sms, result.Error
+	}
+	return sms, nil
+}
+
+func (smR SocialMediaRepositoryImpl) GetAll(ctx context.Context) ([]entity.SocialMedias, error) {
+	var sms []entity.SocialMedias
+	result := smR.DB.WithContext(ctx).Preload(clause.Associations).Model(entity.SocialMedias{}).Find(&sms)
 
 	if result.Error != nil {
 		return sms, result.Error

@@ -1,21 +1,21 @@
 package controller
 
 import (
+	"MyGram/helper"
 	"MyGram/model/entity"
 	"MyGram/service"
 	"context"
-	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
 type CommentControllerImpl struct {
-	Validate       *validator.Validate
+	XValidator     *helper.Validator
 	CommentService service.CommentService
 }
 
-func NewCommentController(validation *validator.Validate, commentService service.CommentService) CommentController {
+func NewCommentController(validation *helper.Validator, commentService service.CommentService) CommentController {
 	return &CommentControllerImpl{
-		Validate:       validation,
+		XValidator:     validation,
 		CommentService: commentService,
 	}
 }
@@ -25,11 +25,7 @@ func (cC CommentControllerImpl) Create(ctx *fiber.Ctx) (err error) {
 
 	commentCreateRequest := entity.CommentCreateRequest{}
 
-	if err := ctx.BodyParser(&commentCreateRequest); err != nil {
-		return err
-	}
-	// TODO: Validate message
-	err = cC.Validate.Struct(commentCreateRequest)
+	err = cC.XValidator.ParseBody(ctx, &commentCreateRequest)
 	if err != nil {
 		return err
 	}
@@ -40,11 +36,11 @@ func (cC CommentControllerImpl) Create(ctx *fiber.Ctx) (err error) {
 		return err
 	}
 	return ctx.Status(fiber.StatusCreated).JSON(entity.CommentCreateResponse{
-		Id:        result.Id,
-		UserId:    result.UserId,
-		PhotoId:   result.PhotoId,
-		Message:   result.Message,
-		CreatedAt: result.CreatedAt,
+		Id:      result.Id,
+		UserId:  result.UserId,
+		PhotoId: result.PhotoId,
+		Message: result.Message,
+		//CreatedAt: result.CreatedAt,
 	})
 }
 
@@ -53,35 +49,59 @@ func (cC CommentControllerImpl) Update(ctx *fiber.Ctx) (err error) {
 
 	commentUpdateRequest := entity.CommentUpdateRequest{}
 
-	if err := ctx.BodyParser(&commentUpdateRequest); err != nil {
-		return err
-	}
-	// TODO: Validation message
-	err = cC.Validate.Struct(commentUpdateRequest)
+	err = cC.XValidator.ParseBody(ctx, &commentUpdateRequest)
 	if err != nil {
 		return err
 	}
 
-	commentId, err := ctx.ParamsInt(":commentId")
+	commentId, err := ctx.ParamsInt("commentId")
 	if err != nil {
 		return err
 	}
-	// TODO:Where is photo id
-	photoId, err := ctx.ParamsInt("photoId")
-	if err != nil {
-		return err
-	}
-	result, err := cC.CommentService.Update(context.Background(), commentUpdateRequest, commentId, photoId, userReadJwt)
+	result, err := cC.CommentService.Update(context.Background(), commentUpdateRequest, commentId, userReadJwt)
 
 	if err != nil {
 		return err
 	}
 	return ctx.Status(fiber.StatusOK).JSON(entity.CommentUpdateResponse{
-		Id:        result.Id,
-		UserId:    result.UserId,
-		PhotoId:   result.PhotoId,
-		Message:   result.Message,
-		UpdatedAt: result.UpdatedAt,
+		Id:      result.Id,
+		UserId:  result.UserId,
+		PhotoId: result.PhotoId,
+		Message: result.Message,
+		//UpdatedAt: result.UpdatedAt,
+	})
+}
+
+func (cC CommentControllerImpl) Get(ctx *fiber.Ctx) (err error) {
+	userReadJwt := ctx.Locals("userRead").(entity.UserReadJwt)
+
+	commentId, err := ctx.ParamsInt("commentId")
+	if err != nil {
+		return err
+	}
+
+	result, err := cC.CommentService.FindById(context.Background(), commentId, userReadJwt)
+	if err != nil {
+		return err
+	}
+
+	return ctx.Status(fiber.StatusOK).JSON(entity.CommentResponse{
+		Id:      result.Id,
+		Message: result.Message,
+		PhotoId: result.PhotoId,
+		UserId:  result.UserId,
+		User: entity.UserRelationComment{
+			Id:       result.User.Id,
+			Username: result.User.Username,
+			Email:    result.User.Email,
+		},
+		Photo: entity.PhotoRelationComment{
+			Id:       result.Photo.Id,
+			Title:    result.Photo.Title,
+			Caption:  result.Photo.Caption,
+			PhotoUrl: result.Photo.PhotoUrl,
+			UserId:   result.Photo.UserId,
+		},
 	})
 }
 
@@ -111,20 +131,27 @@ func (cC CommentControllerImpl) GetAll(ctx *fiber.Ctx) (err error) {
 		return err
 	}
 	var comments []entity.CommentResponse
+
+	//TODO: No efficient
+	if len(result) == 0 {
+		return ctx.Status(fiber.StatusOK).JSON([]string{})
+	}
 	for _, comment := range result {
 		post := entity.CommentResponse{
-			Id:        comment.Id,
-			Message:   comment.Message,
-			PhotoId:   comment.PhotoId,
-			UserId:    comment.UserId,
-			CreatedAt: comment.CreatedAt,
-			UpdatedAt: comment.UpdatedAt,
+			Id:      comment.Id,
+			Message: comment.Message,
+			PhotoId: comment.PhotoId,
+			UserId:  comment.UserId,
+			//CreatedAt: comment.CreatedAt,
+			//UpdatedAt: comment.UpdatedAt,
 			User: entity.UserRelationComment{
+				//Userid expose
 				Id:       comment.UserId,
 				Username: comment.User.Username,
 				Email:    comment.User.Email,
 			},
 			Photo: entity.PhotoRelationComment{
+				//photo Id Expose
 				Id:       comment.Photo.Id,
 				Title:    comment.Photo.Title,
 				Caption:  comment.Photo.Caption,

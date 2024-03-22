@@ -38,10 +38,11 @@ func (uS UserServiceImpl) Register(ctx context.Context, payloadCreate entity.Use
 		return user, fiber.NewError(fiber.StatusInternalServerError, "error when hashing Password")
 	}
 	user = entity.User{
-		Username: payloadCreate.Username,
-		Email:    payloadCreate.Email,
-		Password: hashedPassword,
-		Age:      payloadCreate.Age,
+		Username:        payloadCreate.Username,
+		Email:           payloadCreate.Email,
+		Password:        hashedPassword,
+		Age:             payloadCreate.Age,
+		ProfileImageUrl: payloadCreate.ProfileImageUrl,
 	}
 	result, err = uS.Repository.Create(ctx, user)
 	if err != nil {
@@ -53,15 +54,16 @@ func (uS UserServiceImpl) Register(ctx context.Context, payloadCreate entity.Use
 func (uS UserServiceImpl) Login(ctx context.Context, payloadLogin entity.UserLoginRequest) (token string, err error) {
 
 	result, err := uS.Repository.GetByEmail(ctx, payloadLogin.Email)
+	password, _ := helper.HashPassword(payloadLogin.Password)
 	if err != nil {
 		return "", fiber.NewError(fiber.StatusInternalServerError, "internal server error")
 	}
-	if result.Email == "" {
+	if result.Email != payloadLogin.Email {
 		return "", fiber.NewError(fiber.StatusNotFound, "Email doesn't exists in database")
 	}
-
-	password, _ := helper.HashPassword(payloadLogin.Password)
-
+	if result.Password != password {
+		return "", fiber.NewError(fiber.StatusNotFound, "Password Incorrect")
+	}
 	user := entity.User{
 		Email:    payloadLogin.Email,
 		Password: password,
@@ -91,6 +93,7 @@ func (uS UserServiceImpl) Update(ctx context.Context, payloadUpdate entity.UserU
 		return user, fiber.NewError(404, "Username Already Exists")
 	}
 	result, err = uS.Repository.GetByEmail(ctx, payloadUpdate.Email)
+
 	if err != nil {
 		return user, fiber.NewError(500, "internal server error")
 	}
@@ -99,10 +102,11 @@ func (uS UserServiceImpl) Update(ctx context.Context, payloadUpdate entity.UserU
 	}
 
 	userUpdate := entity.User{
-		Id:       userRead.Id,
-		Email:    payloadUpdate.Email,
-		Username: payloadUpdate.Username,
-		Age:      userRead.Age,
+		Id:              userRead.Id,
+		Email:           payloadUpdate.Email,
+		Username:        payloadUpdate.Username,
+		ProfileImageUrl: payloadUpdate.ProfileImageUrl,
+		Age:             payloadUpdate.Age,
 	}
 
 	result, err = uS.Repository.Update(ctx, userUpdate)

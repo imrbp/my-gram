@@ -5,28 +5,32 @@ import (
 )
 
 type User struct {
-	Id        int       `gorm:"primaryKey"`
-	Username  string    `gorm:"uniqueIndex;not null;type:varchar(50)"`
-	Email     string    `gorm:"uniqueIndex;not null;type:varchar(100)"`
-	Password  string    `gorm:"not null"`
-	Age       int       `gorm:"not null"`
-	UpdatedAt time.Time `gorm:"autoUpdateTime"`
-	CreatedAt time.Time `gorm:"autoCreateTime"`
+	Id              int    `gorm:"primaryKey"`
+	Username        string `gorm:"uniqueIndex;not null;type:varchar(50)"`
+	Email           string `gorm:"uniqueIndex;not null;type:varchar(100)"`
+	Password        string `gorm:"not null"`
+	Age             int8   `gorm:"not null"`
+	ProfileImageUrl string
+	UpdatedAt       time.Time `gorm:"autoUpdateTime"`
+	CreatedAt       time.Time `gorm:"autoCreateTime"`
 }
 type UserCreateRequest struct {
-	Username string `json:"username" validation:"required"`
-	Email    string `json:"email" validation:"required,email"`
-	Password string `json:"password" validation:"required,min:6"`
-	Age      int    `json:"age" validation:"required,gt:8"`
+	Username        string `json:"username" validate:"required"`
+	Email           string `json:"email" validate:"required,email"`
+	Password        string `json:"password" validate:"required,min=6"`
+	Age             int8   `json:"age" validate:"required,gt=8"`
+	ProfileImageUrl string `json:"profile_image_url" validate:"http_url"`
 }
 type UserLoginRequest struct {
-	Email    string `json:"email" validation:"required,email"`
-	Password string `json:"password" validation:"required,min:6"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=6"`
 }
 
 type UserUpdateRequest struct {
-	Username string `json:"username" validation:"required"`
-	Email    string `json:"email" validation:"required,email"`
+	Username        string `json:"username" validate:"required"`
+	Email           string `json:"email" validate:"required,email"`
+	Age             int8   `json:"age" validate:"required,gt=8"`
+	ProfileImageUrl string `json:"profile_image_url" validate:"required,url"`
 }
 
 type UserRelationPhoto struct {
@@ -46,25 +50,28 @@ type UserRelationSocialMedia struct {
 }
 
 type UserCreateResponse struct {
-	Id       int    `json:"id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Age      int    `json:"age"`
+	Id              int    `json:"id"`
+	Username        string `json:"username"`
+	Email           string `json:"email"`
+	Age             int8   `json:"age"`
+	ProfileImageUrl string `json:"profile_image_url"`
 }
 
 type UserReadJwt struct {
 	Id       int    `json:"id"`
 	Email    string `json:"email"`
 	Username string `json:"username"`
-	Age      int    `json:"age"`
+	Age      int8   `json:"age"`
 }
 
 type UserUpdateResponse struct {
-	Id       int       `json:"id"`
-	Username string    `json:"username"`
-	Email    string    `json:"email"`
-	Age      int       `json:"age"`
-	UpdateAt time.Time `json:"update_at"`
+	Id              int    `json:"id"`
+	Username        string `json:"username"`
+	Email           string `json:"email"`
+	Age             int8   `json:"age"`
+	ProfileImageUrl string `json:"profile_image_url"`
+	// Engga pake UpdatedAt
+	//UpdateAt        time.Time `json:"update_at"`
 }
 
 type TokenLogin struct {

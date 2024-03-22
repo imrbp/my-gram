@@ -1,22 +1,22 @@
 package controller
 
 import (
+	"MyGram/helper"
 	"MyGram/model/entity"
 	"MyGram/service"
 	"context"
-	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
 type UserControllerImpl struct {
-	Service  service.UserService
-	Validate *validator.Validate
+	Service    service.UserService
+	XValidator *helper.Validator
 }
 
-func NewUserController(userService service.UserService, validator *validator.Validate) UserController {
+func NewUserController(userService service.UserService, validator *helper.Validator) UserController {
 	return &UserControllerImpl{
-		Service:  userService,
-		Validate: validator,
+		Service:    userService,
+		XValidator: validator,
 	}
 }
 
@@ -24,24 +24,20 @@ func (uC UserControllerImpl) Register(ctx *fiber.Ctx) (err error) {
 	ctx.Accepts("application/json")
 	userRegisterRequest := entity.UserCreateRequest{}
 
-	if err := ctx.BodyParser(&userRegisterRequest); err != nil {
-		return err
-	}
-	// TODO: Validation message
-	err = uC.Validate.Struct(userRegisterRequest)
+	err = uC.XValidator.ParseBody(ctx, &userRegisterRequest)
 	if err != nil {
 		return err
 	}
-
 	result, err := uC.Service.Register(context.Background(), userRegisterRequest)
 	if err != nil {
 		return err
 	}
 	return ctx.Status(fiber.StatusCreated).JSON(entity.UserCreateResponse{
-		Id:       result.Id,
-		Username: result.Username,
-		Email:    result.Email,
-		Age:      result.Age,
+		Id:              result.Id,
+		Username:        result.Username,
+		Email:           result.Email,
+		Age:             result.Age,
+		ProfileImageUrl: result.ProfileImageUrl,
 	})
 }
 
@@ -50,11 +46,7 @@ func (uC UserControllerImpl) Login(ctx *fiber.Ctx) (err error) {
 	ctx.Accepts("application/json")
 	userLogin := entity.UserLoginRequest{}
 
-	if err := ctx.BodyParser(&userLogin); err != nil {
-		return err
-	}
-	// TODO: Validation message
-	err = uC.Validate.Struct(userLogin)
+	err = uC.XValidator.ParseBody(ctx, &userLogin)
 	if err != nil {
 		return err
 	}
@@ -75,7 +67,9 @@ func (uC UserControllerImpl) Update(ctx *fiber.Ctx) (err error) {
 	ctx.Accepts("application/json")
 
 	userUpdate := entity.UserUpdateRequest{}
-	if err := ctx.BodyParser(&userUpdate); err != nil {
+
+	err = uC.XValidator.ParseBody(ctx, &userUpdate)
+	if err != nil {
 		return err
 	}
 
@@ -84,11 +78,12 @@ func (uC UserControllerImpl) Update(ctx *fiber.Ctx) (err error) {
 		return err
 	}
 	return ctx.Status(fiber.StatusOK).JSON(entity.UserUpdateResponse{
-		Id:       result.Id,
-		Username: result.Username,
-		Email:    result.Email,
-		Age:      result.Age,
-		UpdateAt: result.UpdatedAt,
+		Id:              result.Id,
+		Username:        result.Username,
+		Email:           result.Email,
+		Age:             result.Age,
+		ProfileImageUrl: result.ProfileImageUrl,
+		//UpdateAt: result.UpdatedAt,
 	})
 }
 

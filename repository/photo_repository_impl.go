@@ -32,26 +32,26 @@ func (pR PhotoRepositoryImpl) Update(ctx context.Context, payload entity.Photo) 
 }
 
 func (pR PhotoRepositoryImpl) GetById(ctx context.Context, photoId int) (entity.Photo, error) {
-	photoFind := entity.Photo{Id: photoId}
-	result := pR.DB.WithContext(ctx).Find(&photoFind)
+	photoFind := entity.Photo{}
+	result := pR.DB.WithContext(ctx).Where(&entity.Photo{Id: photoId}).Find(&photoFind)
 	if result.Error != nil {
 		return photoFind, result.Error
 	}
 	return photoFind, nil
 }
 
-func (pR PhotoRepositoryImpl) FindMatch(ctx context.Context, payload entity.Photo) (entity.Photo, error) {
-	result := pR.DB.WithContext(ctx).Find(&payload)
-	if result.Error != nil {
-		return payload, result.Error
+func (pR PhotoRepositoryImpl) GetAll(ctx context.Context) ([]entity.Photo, error) {
+	var photos []entity.Photo
+	err := pR.DB.WithContext(ctx).Preload(clause.Associations).Model(entity.Photo{}).Find(&photos)
+	if err.Error != nil {
+		return nil, err.Error
 	}
-	return payload, nil
+	return photos, nil
 }
 
 func (pR PhotoRepositoryImpl) GetAllByUserId(ctx context.Context, userId int) ([]entity.Photo, error) {
 	var photos []entity.Photo
-
-	result := pR.DB.WithContext(ctx).Where("user_id", userId).Find(&photos)
+	result := pR.DB.WithContext(ctx).Model(entity.Photo{}).Where("user_id", userId).Scan(&photos)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -59,7 +59,8 @@ func (pR PhotoRepositoryImpl) GetAllByUserId(ctx context.Context, userId int) ([
 }
 
 func (pR PhotoRepositoryImpl) Delete(ctx context.Context, payload entity.Photo) error {
-	photoDeleted := pR.DB.WithContext(ctx).Select(clause.Associations).Delete(&payload)
+	_ = pR.DB.WithContext(ctx).Where(entity.Comment{PhotoId: payload.Id}).Delete(&entity.Photo{})
+	photoDeleted := pR.DB.WithContext(ctx).Where(entity.SocialMedias{Id: payload.Id}).Delete(&payload)
 	if photoDeleted.Error != nil {
 		return photoDeleted.Error
 	}

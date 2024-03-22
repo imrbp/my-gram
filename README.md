@@ -16,3 +16,24 @@
 - comment ID in PUT comment/:commentID. bisa comment photo id yang mana aja
 - any url need validation, photo and social media
 - Get all -> no data, array kosong
+
+
+# Configuration
+
+First step is make `config.yaml` in config folder. The default for migration is true because when auto migrate is on gorm will make table social_media. which is not correct based specification that shared in google drive.
+
+```yaml
+DB_AUTO_MIGRATE: true
+
+DB_HOST: localhost
+DB_PORT: 5432
+DB_USERNAME: postgres
+DB_PASSWORD: root
+DB_DATABASE: my_gram
+
+JWT_SECRET_KEY: 
+```
+
+Also you need to create jwt secret key. you can fill it with any secret key (there is no limitation). Or you can blank it and run `go run main.go`. And then program will give you the secret key and closed
+
+

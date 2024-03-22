@@ -34,8 +34,22 @@ func (pS PhotoServiceImpl) Post(ctx context.Context, payloadCreate entity.PhotoC
 	return result, nil
 }
 
+func (pS PhotoServiceImpl) Get(ctx context.Context, photoId int, auth entity.UserReadJwt) (photo entity.Photo, err error) {
+	photo, err = pS.PhotoRepository.GetById(ctx, photoId)
+	if err != nil {
+		return photo, err
+	}
+	if photo.Id == 0 {
+		return photo, fiber.ErrNotFound
+	}
+	if photo.UserId != auth.Id {
+		return photo, fiber.ErrUnauthorized
+	}
+	return photo, nil
+}
+
 func (pS PhotoServiceImpl) GetAll(ctx context.Context, auth entity.UserReadJwt) (posts []entity.Photo, err error) {
-	posts, err = pS.PhotoRepository.GetAllByUserId(ctx, auth.Id)
+	posts, err = pS.PhotoRepository.GetAll(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -43,17 +57,18 @@ func (pS PhotoServiceImpl) GetAll(ctx context.Context, auth entity.UserReadJwt) 
 }
 
 func (pS PhotoServiceImpl) Update(ctx context.Context, payloadUpdate entity.PhotoUpdateRequest, photoId int, auth entity.UserReadJwt) (user entity.Photo, err error) {
-	photoFind := entity.Photo{
-		Id:     photoId,
-		UserId: auth.Id,
-	}
-	result, err := pS.PhotoRepository.FindMatch(ctx, photoFind)
+
+	result, err := pS.PhotoRepository.GetById(ctx, photoId)
 
 	if err != nil {
 		return result, fiber.ErrInternalServerError
 	}
+
+	if result.Id == 0 {
+		return result, fiber.ErrNotFound
+	}
 	if result.UserId != auth.Id {
-		return result, fiber.ErrForbidden
+		return result, fiber.ErrUnauthorized
 	}
 
 	result, err = pS.PhotoRepository.Update(ctx, entity.Photo{
@@ -79,8 +94,12 @@ func (pS PhotoServiceImpl) Delete(ctx context.Context, photoId int, auth entity.
 		return fiber.ErrInternalServerError
 	}
 
+	if photo.Id == 0 {
+		return fiber.ErrNotFound
+	}
+
 	if photo.UserId != auth.Id {
-		return fiber.ErrForbidden
+		return fiber.ErrUnauthorized
 	}
 
 	err = pS.PhotoRepository.Delete(ctx, photoFind)

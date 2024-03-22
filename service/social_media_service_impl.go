@@ -15,37 +15,44 @@ func NewSocialMediaService(socialMediaRepository repository.SocialMediaRepositor
 	return &SocialMediaServiceImpl{SocialMediaRepository: socialMediaRepository}
 }
 
-func (smS SocialMediaServiceImpl) Create(context context.Context, payload entity.SocialMediaCreateRequest, auth entity.UserReadJwt) (result entity.SocialMedia, err error) {
-	socialMedia := entity.SocialMedia{
+func (smS SocialMediaServiceImpl) Create(context context.Context, payload entity.SocialMediaCreateRequest, auth entity.UserReadJwt) (result entity.SocialMedias, err error) {
+	socialMedia := entity.SocialMedias{
 		Name:           payload.Name,
 		SocialMediaUrl: payload.SocialMediaUrl,
 		UserId:         auth.Id,
 	}
 	result, err = smS.SocialMediaRepository.Create(context, socialMedia)
 	if err != nil {
-		return socialMedia, fiber.ErrInternalServerError
-	}
-	return socialMedia, nil
-}
-
-func (smS SocialMediaServiceImpl) Update(context context.Context, payload entity.SocialMediaUpdateRequest, socialMediaId int, auth entity.UserReadJwt) (result entity.SocialMedia, err error) {
-
-	socialMediaFind, err := smS.SocialMediaRepository.GetById(context, socialMediaId)
-	if socialMediaFind.UserId != auth.Id {
-		return socialMediaFind, fiber.ErrForbidden
-	}
-	socialMediaFind.SocialMediaUrl = payload.SocialMediaUrl
-	socialMediaFind.Name = payload.Name
-	result, err = smS.SocialMediaRepository.Update(context, socialMediaFind)
-
-	if err != nil {
-		return socialMediaFind, fiber.ErrInternalServerError
+		return result, fiber.ErrInternalServerError
 	}
 	return result, nil
 }
 
-func (smS SocialMediaServiceImpl) GetAll(context context.Context, auth entity.UserReadJwt) (result []entity.SocialMedia, err error) {
-	result, err = smS.SocialMediaRepository.GetByUserId(context, auth.Id)
+func (smS SocialMediaServiceImpl) Update(context context.Context, payload entity.SocialMediaUpdateRequest, socialMediaId int, auth entity.UserReadJwt) (result entity.SocialMedias, err error) {
+
+	socialMedia := entity.SocialMedias{
+		Id:             socialMediaId,
+		UserId:         auth.Id,
+		Name:           payload.Name,
+		SocialMediaUrl: payload.SocialMediaUrl,
+	}
+	socialMediaFind, err := smS.SocialMediaRepository.GetById(context, socialMediaId)
+	if socialMediaFind.Id != socialMediaId {
+		return socialMediaFind, fiber.ErrNotFound
+	}
+	if socialMediaFind.UserId != auth.Id {
+		return socialMediaFind, fiber.ErrUnauthorized
+	}
+	result, err = smS.SocialMediaRepository.Update(context, socialMedia)
+
+	if err != nil {
+		return result, fiber.ErrInternalServerError
+	}
+	return result, nil
+}
+
+func (smS SocialMediaServiceImpl) GetAll(context context.Context) (result []entity.SocialMedias, err error) {
+	result, err = smS.SocialMediaRepository.GetAll(context)
 
 	if err != nil {
 		return result, fiber.ErrInternalServerError
@@ -55,7 +62,7 @@ func (smS SocialMediaServiceImpl) GetAll(context context.Context, auth entity.Us
 func (smS SocialMediaServiceImpl) Delete(context context.Context, socialMediaId int, auth entity.UserReadJwt) (err error) {
 	socialMediaFind, err := smS.SocialMediaRepository.GetById(context, socialMediaId)
 	if socialMediaFind.UserId != auth.Id {
-		return fiber.ErrForbidden
+		return fiber.ErrUnauthorized
 	}
 
 	_, err = smS.SocialMediaRepository.Delete(context, socialMediaFind)

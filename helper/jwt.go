@@ -7,8 +7,8 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt"
 	"math/rand"
 	"time"
 )
@@ -56,7 +56,7 @@ func ValidateUserToken(tokenString string) (user entity.UserReadJwt, err error) 
 		user.Id = int(claims["id"].(float64))
 		user.Email = claims["email"].(string)
 		user.Username = claims["username"].(string)
-		user.Age = int(claims["age"].(float64))
+		user.Age = int8(claims["age"].(float64))
 		return user, nil
 	} else if int64(claims["exp"].(float64)) < time.Now().Unix() {
 		return user, fiber.NewError(fiber.StatusNotAcceptable, "Token is expired")
@@ -76,13 +76,12 @@ func AuthBearerValidation(ctx *fiber.Ctx, key string) (bool, error) {
 	return true, nil
 }
 
-func GenerateSecretKey() {
-
+func GenerateSecretKey() string {
 	buf := make([]byte, 128)
 	_, err := rand.Read(buf)
 	if err != nil {
 		panic(err)
 	}
 	hx := hex.EncodeToString(buf)
-	fmt.Println(" ==> " + hx)
+	return hx
 }
