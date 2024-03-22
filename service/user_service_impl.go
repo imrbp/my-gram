@@ -103,10 +103,15 @@ func (uS UserServiceImpl) Update(ctx context.Context, payloadUpdate entity.UserU
 
 	userUpdate := entity.User{
 		Id:              userRead.Id,
-		Email:           payloadUpdate.Email,
-		Username:        payloadUpdate.Username,
 		ProfileImageUrl: payloadUpdate.ProfileImageUrl,
 		Age:             payloadUpdate.Age,
+	}
+	if payloadUpdate.Username != result.Username {
+		userUpdate.Username = payloadUpdate.Username
+	}
+
+	if payloadUpdate.Email != result.Email {
+		userUpdate.Email = payloadUpdate.Email
 	}
 
 	result, err = uS.Repository.Update(ctx, userUpdate)
