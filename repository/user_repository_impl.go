@@ -38,7 +38,7 @@ func (uR *UserRepositoryImpl) Delete(ctx context.Context, payload entity.User) (
 	_ = uR.DB.WithContext(ctx).Where(entity.Comment{UserId: payload.Id}).Delete(&entity.Comment{})
 	_ = uR.DB.WithContext(ctx).Where(entity.SocialMedias{UserId: payload.Id}).Delete(&entity.SocialMedias{})
 
-	userDeleted := uR.DB.WithContext(ctx).Where(entity.User{Id: payload.Id}).Delete(&payload)
+	userDeleted := uR.DB.WithContext(ctx).Where(entity.User{Id: payload.Id}).Delete(&entity.User{Id: payload.Id})
 	if userDeleted.Error != nil {
 		return userDeleted.Error
 	}

@@ -74,9 +74,6 @@ func (cS CommentServiceImpl) FindById(ctx context.Context, commentId int, auth e
 		return result, fiber.ErrNotFound
 	}
 
-	if result.UserId != auth.Id {
-		return result, fiber.ErrUnauthorized
-	}
 	return result, nil
 }
 

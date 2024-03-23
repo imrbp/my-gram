@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="14e494b7-d11f-43f2-b797-2424bbbe9575" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/comment_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/comment_repository_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/user_repository_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user_repository_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/comment_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/comment_service_impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/photo_service_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/photo_service_impl.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

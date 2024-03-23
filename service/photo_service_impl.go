@@ -42,9 +42,6 @@ func (pS PhotoServiceImpl) Get(ctx context.Context, photoId int, auth entity.Use
 	if photo.Id == 0 {
 		return photo, fiber.ErrNotFound
 	}
-	if photo.UserId != auth.Id {
-		return photo, fiber.ErrUnauthorized
-	}
 	return photo, nil
 }
 

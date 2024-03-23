@@ -31,7 +31,7 @@ func (cR CommentRepositoryImpl) Create(context context.Context, comment entity.C
 
 func (cR CommentRepositoryImpl) GetById(context context.Context, commentId int) (entity.Comment, error) {
 	payload := entity.Comment{}
-	result := cR.DB.WithContext(context).Where(entity.Comment{Id: commentId}).Find(&payload)
+	result := cR.DB.WithContext(context).Preload(clause.Associations).Where(entity.Comment{Id: commentId}).Find(&payload)
 	if result.Error != nil {
 		return payload, result.Error
 	}
@@ -40,7 +40,7 @@ func (cR CommentRepositoryImpl) GetById(context context.Context, commentId int) 
 
 func (cR CommentRepositoryImpl) GetPhotoById(context context.Context, photoId int) (entity.Photo, error) {
 	payload := entity.Photo{}
-	result := cR.DB.WithContext(context).Where(entity.Comment{Id: photoId}).Find(&payload)
+	result := cR.DB.WithContext(context).Preload(clause.Associations).Where(entity.Comment{Id: photoId}).Find(&payload)
 	if result.Error != nil {
 		return payload, result.Error
 	}
