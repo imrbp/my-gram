@@ -22,10 +22,10 @@ func main() {
 			panic(err)
 		}
 		//Default name gorm is social_media. so it's need to change
-		err = db.Migrator().RenameTable(entity.SocialMedias{}, "social_medias")
-		if err != nil {
-			panic(err)
-		}
+		//err = db.Migrator().RenameTable(entity.SocialMedias{}, "social_medias")
+		//if err != nil {
+		//	panic(err)
+		//}
 		fmt.Println("Auto Migrate has been running. Application will close. please change it to false and run again")
 	}
 

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"github.com/spf13/viper"
 )
 
@@ -46,6 +47,10 @@ func LoadConfig() (config Config) {
 		if err != nil {
 			panic(err)
 		}
+	}
+
+	if config.JWT_SECRET_KEY == "" {
+		fmt.Println("Your Secret Key is null")
 	}
 
 	return
