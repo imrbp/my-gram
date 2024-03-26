@@ -33,7 +33,7 @@ func (uR *UserRepositoryImpl) Update(ctx context.Context, payload entity.User) (
 }
 
 func (uR *UserRepositoryImpl) Delete(ctx context.Context, payload entity.User) (err error) {
-	// TODO: Delete With association
+
 	_ = uR.DB.WithContext(ctx).Where(entity.Photo{UserId: payload.Id}).Delete(&entity.Photo{})
 	_ = uR.DB.WithContext(ctx).Where(entity.Comment{UserId: payload.Id}).Delete(&entity.Comment{})
 	_ = uR.DB.WithContext(ctx).Where(entity.SocialMedias{UserId: payload.Id}).Delete(&entity.SocialMedias{})

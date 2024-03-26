@@ -19,7 +19,7 @@ type UserCreateRequest struct {
 	Email           string `json:"email" validate:"required,email"`
 	Password        string `json:"password" validate:"required,min=6"`
 	Age             int8   `json:"age" validate:"required,gt=8"`
-	ProfileImageUrl string `json:"profile_image_url" validate:"http_url"`
+	ProfileImageUrl string `json:"profile_image_url,omitempty" validate:"omitempty,url"`
 }
 type UserLoginRequest struct {
 	Email    string `json:"email" validate:"required,email"`
@@ -30,7 +30,7 @@ type UserUpdateRequest struct {
 	Username        string `json:"username" validate:"required"`
 	Email           string `json:"email" validate:"required,email"`
 	Age             int8   `json:"age" validate:"required,gt=8"`
-	ProfileImageUrl string `json:"profile_image_url" validate:"required,url"`
+	ProfileImageUrl string `json:"profile_image_url,omitempty" validate:"omitempty,url"`
 }
 
 type UserRelationPhoto struct {
